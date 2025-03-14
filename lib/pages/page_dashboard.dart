@@ -1,8 +1,14 @@
-import 'package:agri_app/colors.dart';
+import 'package:agri_app/constantes/colors.dart';
+import 'package:agri_app/pages/page_gestion_plantation.dart';
+import 'package:agri_app/pages/page_gestion_planteur.dart';
 import 'package:flutter/material.dart';
 
 class PageDashboard extends StatelessWidget {
-  const PageDashboard({super.key});
+  final String matricule;
+  const PageDashboard({
+    super.key,
+    required this.matricule,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -12,6 +18,15 @@ class PageDashboard extends StatelessWidget {
         title: const Text("Dashboard"),
         foregroundColor: onPrimary,
         backgroundColor: primary,
+        actions: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Text(matricule),
+              const Icon(Icons.person),
+            ],
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -40,9 +55,13 @@ class PageDashboard extends StatelessWidget {
             const Divider(height: 50),
             Column(
               children: [
-                buildMenu("Gestion des planteurs"),
+                buildMenu("Gestion des planteurs", () {
+                  _onClicGestionPlanteurs(context);
+                }),
                 const SizedBox(height: 10),
-                buildMenu("Gestion des plantations"),
+                buildMenu("Gestion des plantations", () {
+                  _onClicGestionPlantations(context);
+                }),
               ],
             ),
           ],
@@ -51,16 +70,24 @@ class PageDashboard extends StatelessWidget {
     );
   }
 
-  Container buildMenu(String titre) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: primary,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Text(
-        titre,
-        style: const TextStyle(fontSize: 17, color: onPrimary),
+  Widget buildMenu(
+    String titre,
+    Function onClick,
+  ) {
+    return GestureDetector(
+      onTap: () {
+        onClick();
+      },
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: primary,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Text(
+          titre,
+          style: const TextStyle(fontSize: 17, color: onPrimary),
+        ),
       ),
     );
   }
@@ -90,6 +117,22 @@ class PageDashboard extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  void _onClicGestionPlanteurs(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const PageGestionPlanteur(),
+      ),
+    );
+  }
+
+  void _onClicGestionPlantations(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const PageGestionPlantation(),
       ),
     );
   }
