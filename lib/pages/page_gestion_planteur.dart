@@ -1,4 +1,6 @@
 import 'package:agri_app/constantes/colors.dart';
+import 'package:agri_app/pages/page_formulaire_planteur.dart';
+import 'package:agri_app/widgets/bouton_container.dart';
 import 'package:flutter/material.dart';
 
 class PageGestionPlanteur extends StatelessWidget {
@@ -23,29 +25,40 @@ class PageGestionPlanteur extends StatelessWidget {
               ],
             ),
           ),
-          Row(
-            children: [
-              Expanded(
-                child: Padding(
-                  //Marge externe
-                  padding: const EdgeInsets.all(10.0),
-                  child: Container(
-                    //Marge interne
-                    padding: const EdgeInsets.all(15),
-                    decoration: BoxDecoration(
-                      color: primary,
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: const Text(
-                      "Nouveau planteur",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 18, color: onPrimary),
-                    ),
-                  ),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const PageFormulairePlanteur(),
                 ),
-              ),
-            ],
-          ),
+              );
+            },
+            child: const BoutonContainer(text: "Ajouter planteur"),
+          )
+          // Row(
+          //   children: [
+          //     Expanded(
+          //       child: Padding(
+          //         //Marge externe
+          //         padding: const EdgeInsets.all(10.0),
+          //         child: Container(
+          //           //Marge interne
+          //           padding: const EdgeInsets.all(15),
+          //           decoration: BoxDecoration(
+          //             color: primary,
+          //             borderRadius: BorderRadius.circular(30),
+          //           ),
+          //           child: const Text(
+          //             "Nouveau planteur",
+          //             textAlign: TextAlign.center,
+          //             style: TextStyle(fontSize: 18, color: onPrimary),
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //   ],
+          // ),
         ],
       ),
     );
